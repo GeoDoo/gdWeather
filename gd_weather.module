@@ -74,6 +74,7 @@ function gd_weather_permission() {
   return array(
     'access gd_weather content' => array(
       'title' => t('Access settings for the weather module'),
+      'description' => t('Give access to the chosen users.'),
     )
   );
 }
