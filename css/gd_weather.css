@@ -1,12 +1,13 @@
+div#block-gd-weather-weather-block { float: left; }
 div#weather-box { float: left; width: 100%; border: 1px solid #34495e; box-sizing: border-box; padding-top: 15px; }
 nav.weather-nav { float: left; border-bottom: 8px solid #3fa9f5; width: 100%; }
-ul.weather-menu { margin-left: 10px; list-style: none; }
-li.weather-menu-item { float: left; } 
-li.weather-menu-item a { color: #fff; background: #0066b2; padding: 0px 7px; display: block; text-transform: uppercase; font-size: 16px; margin-top: 6px; text-decoration: none; } 
-li.weather-menu-item a.active { background: #3fa9f5; padding: 3px 7px; margin-top: 0; } 
+nav ul.weather-menu { margin-left: 10px; list-style: none; padding: 0; }
+ul li.weather-menu-item { float: left; } 
+ul li.weather-menu-item a { color: #fff; background: #0066b2; padding: 0px 7px; display: block; text-transform: uppercase; font-size: 80%; margin-top: 6px; text-decoration: none; } 
+ul li.weather-menu-item a.active { background: #3fa9f5; padding: 3px 7px; margin-top: 0; } 
 .city-wrapper { color: #29abe2; box-sizing: border-box; display: table-cell; vertical-align: middle; position: relative; }
 .city-wrapper-1:before, .city-wrapper-4:before { content: ''; position: absolute; width: 1px; background: #bbb; height: 80%; left: 0; top: 10%; }
 .city-wrapper-1:after, .city-wrapper-4:after { content: ''; position: absolute; width: 1px; background: #bbb; height: 80%; right: 0; top: 10%; }
-.city-wrapper h5 { text-transform: uppercase; margin: 0; font-size: 13px; }
+.city-wrapper h5 { text-transform: uppercase; margin: 0; font-size: 70%; }
 .temp-group { display: none; }
 .temp-group.active { display: table; width: 100%; text-align: center; }
