@@ -1,2 +1,2 @@
 # weatherModule
-Using the OpenWeatherMap API displaying weather for up to three cities.
+Using the OpenWeatherMap API display weather for up to three cities.
