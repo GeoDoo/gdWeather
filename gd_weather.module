@@ -7,7 +7,7 @@ function gd_weather_menu() {
   $items = array();
 
   $items['admin/config/services/gd_weather'] = array(
-    'title' => 'CF Weather',
+    'title' => 'Gd Weather',
     'description' => 'Description of your gd_weather settings page',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('gd_weather_form'),
