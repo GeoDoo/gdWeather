@@ -1,0 +1,129 @@
+﻿<?php
+/*
+ *  Implements hook_menu().
+*/
+function gd_weather_menu() {
+
+  $items = array();
+
+  $items['admin/config/services/gd_weather'] = array(
+    'title' => 'CF Weather',
+    'description' => 'Description of your gd_weather settings page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('gd_weather_form'),
+    'access arguments' => array('access gd_weather content'),
+    'type' => MENU_NORMAL_ITEM,
+   );
+
+  return $items;
+}
+/**
+ * Page callback: gd_weather settings
+ *
+ * @see gd_weather_menu()
+ */
+function gd_weather_form($form, &$form_state) {
+	 $form['app_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Your OpenWeather App ID'),
+    '#default_value' => variable_get('app_id', ''),
+    '#size' => 40,
+    '#maxlength' => 32,
+    '#description' => t('The ID can be optained in <a href="http://openweathermap.org/appid" target="_blank">OpenWeatherMap API website</a>. Please follow the instructions.'),
+    '#required' => TRUE,
+  );
+	
+  $form['cities_id'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Cities IDs'),
+    '#default_value' => variable_get('cities_id', ''),
+    '#size' => 24,
+    '#maxlength' => 24,
+    '#description' => t('The IDs of the cities found in <a href="http://openweathermap.org/find" target="_blank">OpenWeatherMap search</a>. For those who can\' t find the ID, after hitting search look at the address bar; you\' ll see sth like http://openweathermap.org/city/255683. The number at the end is the ID of each city. ( You can use up to 3 separated by commas ). '),
+    '#required' => TRUE,
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements validation from the Form API.
+ * 
+ * @param $form
+ *   A structured array containing the elements and properties of the form.
+ * @param $form_state
+ *   An array that stores information about the form's current state 
+ *   during processing.
+ */
+function gd_weather_form_validate($form, &$form_state){
+  $cities = $form_state['values']['cities_id'];
+	$cities_arr = explode(',', $cities);
+	foreach($cities_arr as $city) {
+		if (!is_numeric($city)) {
+			form_set_error('cities_id', t('You must enter a number for the every city you want to display.'));
+		}  elseif (count($cities_arr) > 3){
+			form_set_error('cities_id', t('Maximum number of cities to display exceeded. Up to 3 please.'));
+		}
+	}
+}
+
+/**
+ * Implements hook_permission().
+ */
+function gd_weather_permission() {
+  return array(
+    'access gd_weather content' => array(
+      'title' => t('Access settings for the weather module'),
+    )
+  );
+}
+
+/*
+ *  Implements hook_block_info().
+*/
+function gd_weather_block_info() {
+  $blocks = array();
+  $blocks['weather_block'] = array(
+    'info' => t('Weather block'),
+  );
+	
+  return $blocks;
+}
+
+/**
+* Implements hook_block_view().
+*/
+function gd_weather_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'weather_block':
+      $block['subject'] = t('Ο καιρός');
+      $block['content'] = array(
+        '#markup' => _gd_weather_weather_block_content(),
+        '#attached' => array(
+          'css' => array(
+            drupal_get_path('module', 'gd_weather') . '/css/gd_weather.css',
+          ),
+          'js' => array(
+            drupal_get_path('module', 'gd_weather') . '/js/gd_weather.js',
+          ),
+        ),
+      );
+      break;
+  }
+  return $block;
+}
+
+function _gd_weather_weather_block_content() {
+	$app_id = variable_get('app_id');
+	$cities = variable_get('cities_id');
+	drupal_add_js(array('app_id' => $app_id, 'g_cities' => $cities), 'setting');
+  $output = '<nav class="weather-nav">';
+  $output .= '<ul class="weather-menu">';
+  $output .= '<li class="weather-menu-item"><a href="javascript:" class="active">'.t('Today').'</a></li>';
+  $output .= '<li class="weather-menu-item"><a href="javascript:">'.t('Tomorrow').'</a></li>';
+  $output .= '</ul>';
+  $output .= '</nav>';
+  $output .= '<div id="weather-box"><div class="temp-group temp-group-0 active"><div class="city-wrapper city-wrapper-0"><h5></h5><div class="weather-icon"></div></div><div class="city-wrapper city-wrapper-1"><h5></h5><div class="weather-icon"></div></div><div class="city-wrapper city-wrapper-2"><h5></h5><div class="weather-icon"></div></div></div><div class="temp-group temp-group-1"><div class="city-wrapper city-wrapper-3"><h5></h5><div class="weather-icon"></div></div><div class="city-wrapper city-wrapper-4"><h5></h5><div class="weather-icon"></div></div><div class="city-wrapper city-wrapper-5"><h5></h5><div class="weather-icon"></div></div></div></div>';	
+  return $output;
+}
