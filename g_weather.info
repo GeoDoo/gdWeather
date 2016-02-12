@@ -1,8 +1,0 @@
-name = Weather custom block
-description = Creates custom block for three different cities
-package = codefactory
-version = "7.x-0.1"
-core = "7.x"
-
-; NEW LINE
-configure = admin/config/services/g_weather
