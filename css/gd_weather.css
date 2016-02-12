@@ -11,3 +11,4 @@ ul li.weather-menu-item a.active { background: #3fa9f5; padding: 3px 7px; margin
 .city-wrapper h5 { text-transform: uppercase; margin: 0; font-size: 70%; }
 .temp-group { display: none; }
 .temp-group.active { display: table; width: 100%; text-align: center; }
+.city-wrapper-1.only-two:after, .city-wrapper-4.only-two:after { display: none; }
