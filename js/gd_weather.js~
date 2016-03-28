@@ -1,5 +1,5 @@
 (function ($) {
-		Drupal.behaviors.gd_weather = {
+		Drupal.behaviors.g_weather = {
 			attach: function (context, settings) {
       // Code to be run on page load, and
       // on ajax load added here 
