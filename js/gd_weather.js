@@ -3,7 +3,6 @@
 			attach: function (context, settings) {
       // Code to be run on page load, and
       // on ajax load added here 
-			// (test) appID = 7a917428ec6a219b7172ae10f609bd2b
 			var cities = Drupal.settings.g_cities,
 			citiesArr = cities.split(','),
 			citiesArrLength = citiesArr.length,
